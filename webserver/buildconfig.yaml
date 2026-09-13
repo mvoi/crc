@@ -1,0 +1,41 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: httpd-example
+  namespace: myproject
+  labels:
+    app: httpd-example
+    app.openshift.io/runtime: apache
+    template: httpd-example
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'httpd-example:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'httpd:2.4-el8'
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/mvoi/httpd-ex.git'
+  triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
+    - type: GitHub
+      github:
+        secret: drShWmcPcfBTuKFLTwaCy6qUxd6Q1OInAxNK05Kq
+    - type: Generic
+      generic:
+        secret: 3JHrUfxntfvSeVOUxC2oQEngJDj1MCWJO5HgVhoB
+  runPolicy: Serial
