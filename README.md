@@ -23,3 +23,9 @@ PATH="$HOME/.crc/bin/oc:$PATH"
 
     oc create namespace argocd
     helm install argocd argo/argo-cd -namespace argocd --values values-crc.yaml --timeout 10m
+
+## ArgoCD Login
+
+Passwort für den Admin User
+
+    oc -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
