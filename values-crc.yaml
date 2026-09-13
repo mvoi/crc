@@ -1,0 +1,82 @@
+# values-crc.yaml
+## ARGO CD SERVER ##
+server:
+  replicas: 1  # Single Replica für CRC
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  
+  # Route aktivieren (OpenShift-spezifisch)
+  route:
+    enabled: true
+    tls:
+      termination: reencrypt
+      insecureEdgeTerminationPolicy: Redirect
+
+## ARGO REPO SERVER ##
+repoServer:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+
+## ARGO CONTROLLER ##
+controller:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+## REDIS ##
+redis:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+## DEX (SSO) ##
+dex:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+## APPLICATIONSET CONTROLLER ##
+applicationSet:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+## GLOBAL ##
+global:
+  image:
+    tag: latest  # Oder spezifische Version wie "v2.9.0"
+  
+  # Ingress/Route konfigurieren
+  hostingProvider: openshift
+  
+  # Logging Level reduzieren für weniger Overhead
+  logging:
+    level: warn
+    format: text
