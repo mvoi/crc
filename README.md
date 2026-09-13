@@ -13,6 +13,8 @@ Download Archive from RedHat
     crc oc-env
     crc start
     crc console --credentials
+    crc config get cpus
+    crc config get memory
     
 ## Tools
 PATH="$HOME/.crc/bin/oc:$PATH"
